@@ -1,131 +1,131 @@
 """
 Astro Research Lab
-Modern UI Theme
+Modern Theme System
 """
 
 from PySide6.QtGui import QColor
 
 
 class Theme:
+    """
+    Global Design System
+    """
 
-    # =====================================================
-    # COLORS
-    # =====================================================
+    # ---------------------------------------------------------
+    # Colors
+    # ---------------------------------------------------------
 
     BACKGROUND = "#0F172A"
-    SURFACE = "#1E293B"
-    CARD = "#273449"
+    SURFACE = "#111827"
+    CARD = "#1E293B"
 
     PRIMARY = "#6366F1"
-    SECONDARY = "#8B5CF6"
-
-    CYAN = "#06B6D4"
+    PRIMARY_HOVER = "#7C83FF"
+    SECONDARY = PRIMARY_HOVER
 
     SUCCESS = "#22C55E"
     WARNING = "#F59E0B"
     DANGER = "#EF4444"
 
     TEXT = "#F8FAFC"
-    TEXT_SECONDARY = "#CBD5E1"
+    TEXT_SECONDARY = "#94A3B8"
 
     BORDER = "#334155"
 
-    HOVER = "#334155"
+    SIDEBAR = "#111827"
 
-    # =====================================================
-    # RADIUS
-    # =====================================================
+    HOVER = "#1E293B"
 
-    WINDOW_RADIUS = 18
+    # ---------------------------------------------------------
+    # Radius
+    # ---------------------------------------------------------
 
-    CARD_RADIUS = 18
+    RADIUS_SMALL = 8
+    RADIUS = 14
+    RADIUS_LARGE = 22
 
-    BUTTON_RADIUS = 12
-
-    INPUT_RADIUS = 12
-
-    # =====================================================
-    # SPACING
-    # =====================================================
+    # ---------------------------------------------------------
+    # Spacing
+    # ---------------------------------------------------------
 
     XS = 4
-
     SM = 8
-
     MD = 16
-
     LG = 24
-
     XL = 32
-
     XXL = 48
 
-    # =====================================================
-    # TYPOGRAPHY
-    # =====================================================
+    # ---------------------------------------------------------
+    # Typography
+    # ---------------------------------------------------------
 
     FONT = "Segoe UI"
 
-    H1 = 32
-
-    H2 = 24
-
+    H1 = 34
+    H2 = 26
     H3 = 20
 
     BODY = 14
-
     SMALL = 12
 
-    # =====================================================
-    # SIDEBAR
-    # =====================================================
+    # ---------------------------------------------------------
+    # Icons
+    # ---------------------------------------------------------
 
-    SIDEBAR_WIDTH = 270
+    SIDEBAR_WIDTH = 250
 
-    # =====================================================
-    # GLOBAL STYLESHEET
-    # =====================================================
+    # ---------------------------------------------------------
+    # Shadow
+    # ---------------------------------------------------------
+
+    SHADOW_COLOR = QColor(0, 0, 0, 120)
+
+    SHADOW_BLUR = 35
+
+    SHADOW_OFFSET = 8
+
+    # ---------------------------------------------------------
 
     @classmethod
     def stylesheet(cls):
 
         return f"""
 
-        QWidget{{
-            background:{cls.BACKGROUND};
+        *{{
+            font-family:"{cls.FONT}";
             color:{cls.TEXT};
-            font-family:{cls.FONT};
-            font-size:{cls.BODY}px;
+            font-size:14px;
         }}
 
         QMainWindow{{
             background:{cls.BACKGROUND};
         }}
 
-        QFrame{{
-            background:{cls.SURFACE};
-            border-radius:{cls.CARD_RADIUS}px;
+        QWidget{{
+            background:{cls.BACKGROUND};
+            color:{cls.TEXT};
+        }}
+
+        QLabel{{
+            background:transparent;
         }}
 
         QPushButton{{
-            background:{cls.PRIMARY};
-            color:white;
+            background:{cls.CARD};
+            color:{cls.TEXT};
             border:none;
-            border-radius:{cls.BUTTON_RADIUS}px;
-            padding:10px 18px;
+            border-radius:{cls.RADIUS}px;
+            padding:10px 16px;
+            font-size:14px;
             font-weight:600;
         }}
 
         QPushButton:hover{{
-            background:{cls.SECONDARY};
+            background:{cls.PRIMARY};
         }}
 
         QPushButton:pressed{{
-            background:#4338CA;
-        }}
-
-        QLabel{{
-            color:{cls.TEXT};
+            background:{cls.PRIMARY_HOVER};
         }}
 
         QLineEdit,
@@ -133,33 +133,54 @@ class Theme:
         QPlainTextEdit,
         QComboBox,
         QDateEdit,
-        QTimeEdit{{
-            background:{cls.CARD};
-            color:{cls.TEXT};
+        QTimeEdit,
+        QSpinBox,
+        QDoubleSpinBox{{
+            background:{cls.SURFACE};
             border:1px solid {cls.BORDER};
-            border-radius:{cls.INPUT_RADIUS}px;
+            border-radius:{cls.RADIUS}px;
             padding:8px;
+            color:{cls.TEXT};
+        }}
+
+        QLineEdit:focus,
+        QTextEdit:focus,
+        QComboBox:focus{{
+            border:2px solid {cls.PRIMARY};
+        }}
+
+        QListWidget{{
+            background:{cls.SURFACE};
+            border:none;
+        }}
+
+        QTreeWidget{{
+            background:{cls.SURFACE};
+            border:none;
         }}
 
         QTableWidget{{
             background:{cls.SURFACE};
-            border:1px solid {cls.BORDER};
-            border-radius:14px;
+            border:none;
             gridline-color:{cls.BORDER};
-            selection-background-color:{cls.PRIMARY};
         }}
 
         QHeaderView::section{{
             background:{cls.CARD};
-            color:{cls.TEXT};
             border:none;
-            padding:10px;
-            font-weight:bold;
+            padding:8px;
+            font-weight:600;
+        }}
+
+        QScrollArea{{
+            border:none;
+            background:transparent;
         }}
 
         QScrollBar:vertical{{
-            background:transparent;
+            background:{cls.SURFACE};
             width:10px;
+            border:none;
         }}
 
         QScrollBar::handle:vertical{{
@@ -167,9 +188,27 @@ class Theme:
             border-radius:5px;
         }}
 
-        QStatusBar{{
-            background:{cls.SURFACE};
-            color:{cls.TEXT_SECONDARY};
+        QScrollBar::handle:vertical:hover{{
+            background:{cls.PRIMARY};
         }}
 
+        QStatusBar{{
+            background:{cls.SURFACE};
+            border-top:1px solid {cls.BORDER};
+        }}
+
+        QMenuBar{{
+            background:{cls.BACKGROUND};
+        }}
+
+        QMenu{{
+            background:{cls.SURFACE};
+        }}
+
+        QToolTip{{
+            background:{cls.CARD};
+            color:white;
+            border:none;
+            padding:6px;
+        }}
         """
