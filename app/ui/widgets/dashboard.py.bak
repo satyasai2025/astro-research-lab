@@ -1,0 +1,190 @@
+"""
+Dashboard Widget
+Astro Research Lab
+"""
+
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
+    QFrame,
+    QGridLayout,
+    QLabel,
+    QSizePolicy,
+    QVBoxLayout,
+    QWidget,
+)
+
+
+class Dashboard(QFrame):
+    """
+    Main Dashboard Area.
+    """
+
+    def __init__(self):
+        super().__init__()
+
+        self.setObjectName("Dashboard")
+
+        self.initialize_ui()
+
+    def initialize_ui(self):
+        """
+        Build dashboard layout.
+        """
+
+        self.setSizePolicy(
+            QSizePolicy.Expanding,
+            QSizePolicy.Expanding,
+        )
+
+        layout = QVBoxLayout()
+
+        layout.setContentsMargins(25, 25, 25, 25)
+
+        layout.setSpacing(20)
+
+        self.setLayout(layout)
+
+        # -------------------------------------
+        # Title
+        # -------------------------------------
+
+        title = QLabel("Dashboard")
+
+        title.setAlignment(Qt.AlignmentFlag.AlignLeft)
+
+        title.setStyleSheet("""
+            QLabel{
+                font-size:28px;
+                font-weight:bold;
+                color:#202124;
+            }
+        """)
+
+        layout.addWidget(title)
+
+        # -------------------------------------
+        # Welcome
+        # -------------------------------------
+
+        welcome = QLabel(
+            "Welcome to Astro Research Lab\n\n"
+            "This platform is designed for professional astrology "
+            "research, event analysis and horoscope analytics."
+        )
+
+        welcome.setWordWrap(True)
+
+        welcome.setStyleSheet("""
+            QLabel{
+                font-size:15px;
+                color:#555555;
+            }
+        """)
+
+        layout.addWidget(welcome)
+
+        # -------------------------------------
+        # Statistics Cards
+        # -------------------------------------
+
+        cards = QWidget()
+
+        grid = QGridLayout()
+
+        grid.setSpacing(15)
+
+        cards.setLayout(grid)
+
+        grid.addWidget(
+            self.create_card(
+                "Horoscopes",
+                "0"
+            ),
+            0,
+            0
+        )
+
+        grid.addWidget(
+            self.create_card(
+                "Research Projects",
+                "0"
+            ),
+            0,
+            1
+        )
+
+        grid.addWidget(
+            self.create_card(
+                "Events",
+                "0"
+            ),
+            1,
+            0
+        )
+
+        grid.addWidget(
+            self.create_card(
+                "Reports",
+                "0"
+            ),
+            1,
+            1
+        )
+
+        layout.addWidget(cards)
+
+        layout.addStretch()
+
+        self.setStyleSheet("""
+            QFrame#Dashboard{
+                background:white;
+            }
+        """)
+
+    def create_card(self, title: str, value: str) -> QFrame:
+        """
+        Create dashboard information card.
+        """
+
+        card = QFrame()
+
+        card.setMinimumHeight(120)
+
+        card.setStyleSheet("""
+            QFrame{
+                background:#F8F9FA;
+                border:1px solid #DDDDDD;
+                border-radius:12px;
+            }
+        """)
+
+        layout = QVBoxLayout()
+
+        card.setLayout(layout)
+
+        heading = QLabel(title)
+
+        heading.setStyleSheet("""
+            QLabel{
+                font-size:15px;
+                color:#666666;
+            }
+        """)
+
+        number = QLabel(value)
+
+        number.setStyleSheet("""
+            QLabel{
+                font-size:32px;
+                font-weight:bold;
+                color:#2563EB;
+            }
+        """)
+
+        layout.addWidget(heading)
+
+        layout.addStretch()
+
+        layout.addWidget(number)
+
+        return card
